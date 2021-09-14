@@ -1,0 +1,59 @@
+FROM silentmecha/steamcmd:latest
+
+LABEL maintainer="silent@silentmecha.co.za"
+
+ENV STEAMAPP_ID 896660
+ENV STEAMAPP Valheim
+ENV STEAMAPPDIR "${HOME}/${STEAMAPP}-dedicated"
+ENV STEAM_SAVEDIR "${STEAMAPPDIR}/Saves"
+
+USER root
+
+COPY ./src/entry.sh ${HOME}/entry.sh
+
+RUN set -x \
+	&& apt-get update \
+	&& apt-get install -y --no-install-recommends --no-install-suggests \
+		file \
+		jq \
+	&& apt-get autoremove -y \
+	&& rm -rf /var/lib/apt/lists/* \
+	&& mkdir -p "${STEAMAPPDIR}" \
+    && mkdir -p "${HOME}/mcrcon" \
+	&& mkdir -p "${HOME}/.config/unity3d/IronGate/Valheim" \
+    && wget -c https://github.com/Tiiffi/mcrcon/releases/download/v0.7.1/mcrcon-0.7.1-linux-x86-64.tar.gz -O - | tar -xz -C "${HOME}/mcrcon" --strip-components=1 \
+	&& chmod +x "${HOME}/entry.sh" \
+	&& ln -s "${HOME}/.config/unity3d/IronGate/Valheim" ${STEAM_SAVEDIR} \
+	&& chown -R "${USER}:${USER}" "${HOME}/entry.sh" "${STEAMAPPDIR}" "${HOME}" \
+	&& chmod -R 744 "${STEAM_SAVEDIR}" "${HOME}/.config/"
+
+ENV SERVER_NAME="Valheim Plus Docker" \
+	PORT=2456 \
+	QUERYPORT=2457 \
+	WORLDPORT=2458 \
+	WORLD="Dedicated" \
+	SERVER_PASSWORD="secret"
+
+# Switch to user
+USER ${USER}
+
+RUN bash steamcmd \
+	+login anonymous \
+	+force_install_dir "${STEAMAPPDIR}" \
+	+app_update "${STEAMAPP_ID}" validate \
+	+quit \
+	&& wget -c $(curl -s https://api.github.com/repos/valheimPlus/ValheimPlus/releases/latest | jq -r .assets[0].browser_download_url) -O - | tar -xz -C "${STEAMAPPDIR}"
+
+VOLUME ${STEAM_SAVEDIR}
+
+WORKDIR ${HOME}
+
+EXPOSE 	${PORT}/udp \
+        ${QUERYPORT}/udp \
+        ${WORLDPORT}/udp \
+        ${PORT}/tcp \
+        ${QUERYPORT}/tcp \
+        ${WORLDPORT}/tcp
+
+
+CMD ["bash", "entry.sh"]

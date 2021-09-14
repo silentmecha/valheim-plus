@@ -1,0 +1,29 @@
+version: "3.4"
+services:
+  server:
+#    command: bash
+    build: .
+    image: silentmecha/valheim:latest
+    restart: unless-stopped
+    ports:
+      - ${PORT}:${PORT}/udp
+      - ${QUERYPORT}:${QUERYPORT}/udp
+      - ${WORLDPORT}:${WORLDPORT}/udp
+      - ${PORT}:${PORT}/tcp
+      - ${QUERYPORT}:${QUERYPORT}/tcp
+      - ${WORLDPORT}:${WORLDPORT}/tcp
+    env_file: .env
+    stdin_open: true
+    tty: true
+    volumes:
+      - saved:/home/steam/Valheim-dedicated/Saves
+  sftp:
+    image: atmoz/sftp
+    restart: unless-stopped
+    volumes:
+      - saved:/home/${SFT_USER}/save
+    ports:
+      - "${SFT_PORT}:22"
+    command: ${SFT_USER}:${SFT_PASS}:::save
+volumes:
+  saved:
