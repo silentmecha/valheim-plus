@@ -3,7 +3,7 @@ services:
   server:
 #    command: bash
     build: .
-    image: silentmecha/valheim:latest
+    image: silentmecha/valheim-plus:latest
     restart: unless-stopped
     ports:
       - ${PORT}:${PORT}/udp

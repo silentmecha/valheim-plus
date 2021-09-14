@@ -1,6 +1,6 @@
-# silentmecha/valheim
+# silentmecha/valheim-plus
 
-This repository contains the files needed for the image silentmecha/valheim:latest
+This repository contains the files needed for the image silentmecha/valheim-plus:latest
 
 **NB This README still needs to be updated and corrected. This image is not yet complete as the game is still very early access**
 
@@ -15,7 +15,7 @@ For more info on environment variabes and what they do see [Environment Variable
 The simplest usage for this is using the `docker-compose` method.
 
 ```console
-git clone https://github.com/silentmecha/valheim.git valheim-server
+git clone https://github.com/silentmecha/valheim-plus.git valheim-server
 cd valheim-server
 cp .env.example .env
 nano .env
@@ -25,7 +25,7 @@ docker-compose up -d
 ### Without building the image locally
 
 ```console
-git clone https://github.com/silentmecha/valheim.git valheim-server
+git clone https://github.com/silentmecha/valheim-plus.git valheim-server
 cd valheim-server
 cp .env.example .env
 nano .env
