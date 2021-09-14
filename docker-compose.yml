@@ -17,11 +17,13 @@ services:
     tty: true
     volumes:
       - saved:/home/steam/Valheim-dedicated/Saves
+      - BepInEx:/home/steam/Valheim-dedicated/BepInEx
   sftp:
     image: atmoz/sftp
     restart: unless-stopped
     volumes:
       - saved:/home/${SFT_USER}/save
+      - BepInEx:/home/${SFT_USER}/bepinex
     ports:
       - "${SFT_PORT}:22"
     command: ${SFT_USER}:${SFT_PASS}:::save
