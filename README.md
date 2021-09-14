@@ -39,20 +39,18 @@ Updating is still currently in devolpment so once that is sorted this README wil
 
 ### Environment Variables
 
-### Environment Variables
-
-| Variable Name   | Default Value  | Description                                                                                                         |
-|-----------------|----------------|---------------------------------------------------------------------------------------------------------------------|
-| SERVER_NAME     | Valheim Docker | Name of your server as seen in server browser (accepts spaces)                                                      |
-| PORT            | 2456           | Port used to connect to the server                                                                                  |
-| QUERYPORT       | 2457           | Port used to query the server **This needs to be $PORT plus 1 as this currently is not setable by the game server** |
-| WORLDPORT       | 2458           | Port used to send world data **This needs to be $PORT plus 2 as this currently is not setable by the game server**  |
-| WORLD           | Dedicated      | Name of the save file                                                                                               |
-| SERVER_PASSWORD | secret         | Password to enter your server                                                                                       |
-| ADDITIONAL_ARGS |                | Currently not used                                                                                                  |
-| SFT_USER        | foo            | Username for SFTP access to edit save data                                                                          |
-| SFT_PASS        | pass           | Password for SFTP access to edit save data                                                                          |
-| SFT_PORT        | 2222           | Port for SFTP access (should not be 22 )                                                                            |
+| Variable Name   | Default Value       | Description                                                                                                         |
+|-----------------|---------------------|---------------------------------------------------------------------------------------------------------------------|
+| SERVER_NAME     | Valheim Plus Docker | Name of your server as seen in server browser (accepts spaces)                                                      |
+| PORT            | 2456                | Port used to connect to the server                                                                                  |
+| QUERYPORT       | 2457                | Port used to query the server **This needs to be $PORT plus 1 as this currently is not setable by the game server** |
+| WORLDPORT       | 2458                | Port used to send world data **This needs to be $PORT plus 2 as this currently is not setable by the game server**  |
+| WORLD           | Dedicated           | Name of the save file                                                                                               |
+| SERVER_PASSWORD | secret              | Password to enter your server                                                                                       |
+| ADDITIONAL_ARGS |                     | Currently not used                                                                                                  |
+| SFT_USER        | foo                 | Username for SFTP access to edit save data                                                                          |
+| SFT_PASS        | pass                | Password for SFTP access to edit save data                                                                          |
+| SFT_PORT        | 2222                | Port for SFTP access (should not be 22 )                                                                            |
 
 For more info on the usage of SFTP see [here](https://github.com/atmoz/sftp). If you do not want to use a plane text password see [encrypted-password](https://github.com/atmoz/sftp#encrypted-password)
 
