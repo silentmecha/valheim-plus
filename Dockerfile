@@ -41,8 +41,9 @@ RUN bash steamcmd \
 	+login anonymous \
 	+force_install_dir "${STEAMAPPDIR}" \
 	+app_update "${STEAMAPP_ID}" validate \
-	+quit \
-	&& wget -c $(curl -s https://api.github.com/repos/valheimPlus/ValheimPlus/releases/latest | jq -r '.assets[] | select(.name=="UnixServer.tar.gz").browser_download_url') -O - | tar -xz -C "${STEAMAPPDIR}"
+	+quit
+
+RUN wget -c $(curl -s https://api.github.com/repos/valheimPlus/ValheimPlus/releases/latest | jq -r '.assets[] | select(.name=="UnixServer.tar.gz").browser_download_url') -O - | tar -xz -C "${STEAMAPPDIR}"
 
 VOLUME ${STEAM_SAVEDIR}
 
